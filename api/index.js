@@ -7,6 +7,6 @@
  *
  * Express ya es un manejador (req, res), basta con exponerlo.
  */
-const app = require('../server/app');
+const app = require('./backend/app');
 
 module.exports = (req, res) => app(req, res);
