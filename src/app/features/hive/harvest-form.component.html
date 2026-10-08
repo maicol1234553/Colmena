@@ -1,0 +1,126 @@
+<section class="page">
+  <a class="back" [routerLink]="['/hive', hiveId]" eviRipple>
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+         stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 3 5 8l5 5" />
+    </svg>
+    Volver
+  </a>
+
+  <header class="head" [@fadeUp]>
+    <div>
+      <p class="eyebrow">Colmena {{ hiveId }}</p>
+      <h1 class="display">Registro de Cosecha</h1>
+      <p class="muted head__sub">Alzas extraídas y qué dejas en su lugar.</p>
+    </div>
+  </header>
+
+  <form class="form" (ngSubmit)="save()">
+    <!-- Contexto -->
+    <fieldset class="card panel group" [@fadeUp] style="animation-delay: 40ms">
+      <legend class="group__legend">Contexto</legend>
+
+      <div class="grid-form">
+        <label class="field">
+          <span class="field__label">Fecha</span>
+          <input class="input" type="date" name="date" [(ngModel)]="date" required />
+        </label>
+
+        <label class="field">
+          <span class="field__label">Alza</span>
+          <span class="select-wrap">
+            <select class="select" name="super" [(ngModel)]="superModel">
+              @for (o of OPT.supers; track o) { <option [value]="o">Alza {{ o }}</option> }
+            </select>
+          </span>
+        </label>
+
+        <div class="field">
+          <span class="field__label">Cuadro</span>
+          <div class="frame-picker">
+            @for (f of OPT.frames; track f) {
+              <button type="button" class="frame-dot"
+                      [class.frame-dot--on]="frame === f" (click)="frame = f">
+                {{ f }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Método -->
+    <fieldset class="card panel group" [@fadeUp] style="animation-delay: 100ms">
+      <legend class="group__legend">Método de extracción</legend>
+
+      <!-- El thumb se posiciona con CSS (:has) — sin cálculo en TS -->
+      <div
+        class="segmented segmented--wide"
+        role="radiogroup"
+        aria-label="Método"
+        [class.segmented--right]="method === 'Centrífuga'"
+      >
+        <span class="segmented__thumb" aria-hidden="true"></span>
+        @for (o of OPT.method; track o) {
+          <label class="segmented__option" [class.on]="method === o">
+            <input type="radio" name="method" [value]="o" [(ngModel)]="method" />
+            {{ o }}
+          </label>
+        }
+      </div>
+
+      <p class="tiny hint">
+        {{ method === 'Centrífuga' ? 'Extrae más y daña menos la cera.' : 'Tradicional, ideal para pequeñas cantidades.' }}
+      </p>
+    </fieldset>
+
+    <!-- Reemplazos -->
+    <fieldset class="card panel group" [@fadeUp] style="animation-delay: 160ms">
+      <legend class="group__legend">Reemplazos</legend>
+
+      <div class="stack" style="gap: 20px">
+        <div class="row-split">
+          <span class="field__label">Cuadro de reemplazo</span>
+          <div class="segmented">
+            @for (o of OPT.wax; track o) {
+              <label class="segmented__option" [class.on]="replacementFrame === o">
+                <input type="radio" name="replacementFrame" [value]="o" [(ngModel)]="replacementFrame" />
+                {{ o }}
+              </label>
+            }
+          </div>
+        </div>
+
+        <div class="row-split">
+          <span class="field__label">Cuadros faltantes</span>
+          <div class="segmented">
+            @for (o of OPT.wax; track o) {
+              <label class="segmented__option" [class.on]="missingFrames === o">
+                <input type="radio" name="missingFrames" [value]="o" [(ngModel)]="missingFrames" />
+                {{ o }}
+              </label>
+            }
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="actions" [@fadeUp] style="animation-delay: 220ms">
+      <a class="btn btn--ghost btn--lg" [routerLink]="['/hive', hiveId]" eviRipple>Cancelar</a>
+
+      <button class="btn btn--honey btn--lg" type="submit" [disabled]="saving()" eviRipple>
+        @if (saved()) {
+          <svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" @drawCheck>
+            <path d="M3 8.5 6.5 12 13 4.5" />
+          </svg>
+          Guardado
+        } @else if (saving()) {
+          <span class="spinner"></span> Guardando…
+        } @else {
+          Guardar cosecha
+        }
+      </button>
+    </div>
+  </form>
+</section>

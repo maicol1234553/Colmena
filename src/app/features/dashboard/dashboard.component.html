@@ -1,0 +1,177 @@
+<section class="page">
+  <!-- ---------- Cabecera ---------- -->
+  <header class="page__head" [@fadeUp]>
+    <div>
+      <p class="eyebrow">Evieland · Apiario</p>
+      <h1 class="display">Hola, {{ userName }}</h1>
+    </div>
+
+    <div class="head__actions">
+      <button class="btn" type="button" (click)="exportAll()" [disabled]="exporting()" eviRipple>
+        <span class="btn__icon">
+          @if (exporting()) {
+            <span class="spinner" style="width: 15px; height: 15px"></span>
+          } @else {
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 2v8m0 0 3-3M8 10 5 7" />
+              <path d="M2.5 11v1.5A1.5 1.5 0 0 0 4 14h8a1.5 1.5 0 0 0 1.5-1.5V11" />
+            </svg>
+          }
+        </span>
+        Exportar historial a Excel
+      </button>
+    </div>
+  </header>
+
+  <!-- ---------- KPIs ---------- -->
+  @if (kpis(); as k) {
+    <div class="kpis" [@fadeUp]>
+      <div class="kpi">
+        <span class="kpi__value">{{ k.activeHives }}</span>
+        <span class="kpi__label">Colmenas activas</span>
+      </div>
+      <div class="kpi">
+        <span class="kpi__value">{{ k.totalCheckups }}</span>
+        <span class="kpi__label">Chequeos</span>
+      </div>
+      <div class="kpi">
+        <span class="kpi__value">{{ k.totalHarvests }}</span>
+        <span class="kpi__label">Cosechas</span>
+      </div>
+      <div class="kpi kpi--alert" [@pulse]="k.alerts > 0 ? 'beat' : 'idle'">
+        <span class="kpi__value">{{ k.alerts }}</span>
+        <span class="kpi__label">Alertas (30 días)</span>
+      </div>
+    </div>
+  }
+
+  <!-- ---------- Cuadrícula de colmenas ---------- -->
+  <div class="grid-head" [@fadeUp]>
+    <h2 class="section__title">Colmenas</h2>
+    <span class="tiny">{{ hives().length }} registradas</span>
+  </div>
+
+  <div class="hive-grid">
+    @if (loading()) {
+      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+        <div class="hive-card hive-card--skeleton" [@fadeUp]>
+          <div class="skeleton" style="height: 14px; width: 42%"></div>
+          <div class="skeleton" style="height: 30px; width: 70%"></div>
+          <div class="skeleton" style="height: 12px; width: 55%"></div>
+        </div>
+      }
+    } @else {
+      <!-- Stagger: cada tarjeta entra 48ms después que la anterior -->
+      <div class="hive-grid__inner" [@staggerIn]="hives().length">
+        @for (hive of hives(); track hive.id) {
+          <a class="hive-card" [routerLink]="['/hive', hive.id]" eviRipple>
+            <span class="hive-card__stripe" [style.background]="hive.color"></span>
+
+            <div class="hive-card__top">
+              <span class="hive-card__index" [style.color]="hive.color">
+                {{ hiveNumber(hive.name) }}
+              </span>
+
+              <button
+                class="hive-card__more"
+                type="button"
+                aria-label="Opciones"
+                (click)="$event.preventDefault(); $event.stopPropagation(); askDelete(hive)"
+              >
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
+                  <circle cx="8" cy="3" r="1.3" /><circle cx="8" cy="8" r="1.3" /><circle cx="8" cy="13" r="1.3" />
+                </svg>
+              </button>
+            </div>
+
+            <p class="hive-card__name">{{ hive.name }}</p>
+
+            <div class="hive-card__meta">
+              <span>{{ hive.total_checkups }} chequeos</span>
+              <span class="dot"></span>
+              <span>{{ hive.total_harvests }} cosechas</span>
+            </div>
+
+            @if (hive.last_health && hive.last_health !== 'Sano') {
+              <span class="hive-card__alert">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                     stroke-width="1.6" stroke-linecap="round">
+                  <path d="M8 5v4M8 11.5v.5" /><circle cx="8" cy="8" r="6.2" />
+                </svg>
+                {{ hive.last_health }}
+              </span>
+            } @else if (hive.last_activity) {
+              <span class="hive-card__date tiny">Último registro · {{ hive.last_activity | date: 'dd MMM' }}</span>
+            }
+          </a>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- ---------- Botón flotante ---------- -->
+  <button class="fab" type="button" (click)="openModal()" eviRipple aria-label="Añadir colmena" [@fabIn]>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+         stroke-width="1.8" stroke-linecap="round">
+      <path d="M10 4v12M4 10h12" />
+    </svg>
+    <span>Añadir colmena</span>
+  </button>
+</section>
+
+<!-- ---------- Modal: nueva colmena ---------- -->
+@if (modalOpen()) {
+  <div class="modal" role="dialog" aria-modal="true" (click)="modalOpen.set(false)" [@modal]>
+    <div class="modal__backdrop"></div>
+
+    <div class="modal__panel" (click)="$event.stopPropagation()">
+      <p class="eyebrow">Nueva entrada</p>
+      <h3 class="modal__title">Añadir colmena</h3>
+
+      <div class="stack" style="gap: 18px; margin-top: 20px">
+        <label class="field">
+          <span class="field__label">Nombre</span>
+          <input class="input" type="text" [(ngModel)]="newName" (keyup.enter)="createHive()" autofocus />
+        </label>
+
+        <div class="field">
+          <span class="field__label">Color de identificación</span>
+          <div class="swatches">
+            @for (c of palette; track c) {
+              <button
+                type="button"
+                class="swatch"
+                [class.swatch--on]="newColor === c"
+                [style.background]="c"
+                (click)="newColor = c"
+                [attr.aria-label]="'Color ' + c"
+              ></button>
+            }
+          </div>
+        </div>
+
+        <div class="modal__actions">
+          <button class="btn btn--ghost" type="button" (click)="modalOpen.set(false)" eviRipple>
+            Cancelar
+          </button>
+          <button class="btn btn--honey" type="button" (click)="createHive()" eviRipple>
+            Crear colmena
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ---------- Modal: confirmar archivado ---------- -->
+@if (confirmOpen() && target) {
+  <evi-confirm
+    eyebrow="Archivar"
+    [title]="'¿Archivar ' + target.name + '?'"
+    message="Se ocultará del panel principal. Sus registros se conservan en el historial."
+    confirmLabel="Archivar"
+    (confirm)="deleteHive()"
+    (close)="confirmOpen.set(false)"
+  />
+}

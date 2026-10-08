@@ -1,0 +1,143 @@
+.page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 28px 90px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px 7px 10px;
+  margin-bottom: 26px;
+  font-size: 13px;
+  font-weight: 550;
+  color: var(--ink-2);
+  text-decoration: none;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  transition: transform 0.34s var(--ease-spring), box-shadow 0.34s var(--ease-out);
+}
+
+.back:hover {
+  transform: translateX(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+.head__sub {
+  margin: 8px 0 0;
+  font-size: 14.5px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.group {
+  border: 1px solid var(--line);
+  margin: 0;
+}
+
+.group__legend {
+  padding: 0 8px;
+  margin-left: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- Fichas de cuadro ---------- */
+.frame-picker {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.frame-dot {
+  display: grid;
+  place-items: center;
+  height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition:
+    transform 0.34s var(--ease-spring),
+    background-color 0.24s ease,
+    color 0.24s ease,
+    border-color 0.24s ease,
+    box-shadow 0.3s ease;
+}
+
+.frame-dot:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.frame-dot:active {
+  transform: scale(0.92);
+}
+
+.frame-dot--on {
+  color: #2b2109;
+  background: var(--honey);
+  border-color: var(--honey);
+  box-shadow: 0 4px 12px rgba(224, 163, 58, 0.35);
+  transform: translateY(-2px);
+}
+
+/* ---------- Segmentado ancho con thumb animado ---------- */
+.segmented--wide {
+  display: flex;
+  width: 100%;
+}
+
+.segmented--wide .segmented__option {
+  flex: 1;
+  padding: 11px 18px;
+  font-size: 14.5px;
+  transition: color 0.28s var(--ease-out), background-color 0.28s ease;
+}
+
+.segmented__option.on {
+  color: var(--ink);
+}
+
+/* El thumb del método ocupa la mitad y se desliza entre opciones */
+.segmented--wide .segmented__thumb {
+  width: calc(50% - 4px);
+  left: 4px;
+  transition: left 0.46s var(--ease-spring);
+}
+
+.segmented--wide.segmented--right .segmented__thumb {
+  left: calc(50%);
+}
+
+.hint {
+  margin: 12px 0 0;
+}
+
+/* ---------- Filas partidas ---------- */
+.row-split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}

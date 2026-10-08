@@ -1,0 +1,352 @@
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 44px 28px 130px;
+}
+
+/* ---------- Cabecera ---------- */
+.page__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 34px;
+}
+
+.page__head h1 {
+  margin-top: 6px;
+}
+
+.head__actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ---------- KPIs ---------- */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 46px;
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 18px 20px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+
+.kpi:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.kpi__value {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1.1;
+}
+
+.kpi__label {
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+
+.kpi--alert .kpi__value {
+  color: var(--alert);
+}
+
+/* ---------- Sección ---------- */
+.grid-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.section__title {
+  font-size: 24px;
+}
+
+/* ---------- Cuadrícula de colmenas ---------- */
+.hive-grid__inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  gap: 16px;
+}
+
+.hive-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px 22px 20px;
+  overflow: hidden;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-xs);
+  transition:
+    transform 0.44s var(--ease-spring),
+    box-shadow 0.44s var(--ease-out),
+    border-color 0.3s ease;
+}
+
+.hive-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--line-strong);
+}
+
+.hive-card:active {
+  transform: translateY(-1px) scale(0.985);
+  transition-duration: 110ms;
+}
+
+/* Brillo que cruza la tarjeta al hacer hover */
+.hive-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.55) 48%,
+    transparent 62%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.9s var(--ease-out);
+  pointer-events: none;
+}
+
+.hive-card:hover::after {
+  transform: translateX(120%);
+}
+
+.hive-card__stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  transform: scaleX(0.28);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.hive-card:hover .hive-card__stripe {
+  transform: scaleX(1);
+}
+
+.hive-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.hive-card__index {
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 1;
+  transition: transform 0.44s var(--ease-spring);
+}
+
+.hive-card:hover .hive-card__index {
+  transform: translateY(-2px) scale(1.06);
+}
+
+.hive-card__more {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: var(--ink-3);
+  background: transparent;
+  border: none;
+  border-radius: var(--r-full);
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.28s ease, transform 0.32s var(--ease-spring), background-color 0.2s ease;
+}
+
+.hive-card:hover .hive-card__more,
+.hive-card__more:focus-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hive-card__more:hover {
+  background: rgba(28, 26, 23, 0.07);
+  color: var(--alert);
+}
+
+.hive-card__name {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.hive-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+
+.dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.hive-card__date {
+  margin: 2px 0 0;
+}
+
+.hive-card__alert {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  padding: 3px 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--alert);
+  background: var(--alert-wash);
+  border-radius: var(--r-full);
+}
+
+.hive-card--skeleton {
+  gap: 12px;
+  animation: fade-up-in 0.4s var(--ease-out);
+}
+
+@keyframes fade-up-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* ---------- FAB ---------- */
+.fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 24px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #2b2109;
+  background: var(--honey);
+  border: none;
+  border-radius: var(--r-full);
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(224, 163, 58, 0.42), var(--shadow-sm);
+  transition: transform 0.42s var(--ease-spring), box-shadow 0.42s var(--ease-out);
+}
+
+.fab:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(224, 163, 58, 0.5), var(--shadow-md);
+}
+
+.fab:active {
+  transform: scale(0.96);
+  transition-duration: 100ms;
+}
+
+/* ---------- Modales ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 26, 23, 0.34);
+  backdrop-filter: blur(6px);
+}
+
+.modal__panel {
+  position: relative;
+  width: min(440px, 100%);
+  padding: 30px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal__title {
+  font-size: 25px;
+  margin: 10px 0 0;
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.34s var(--ease-spring), border-color 0.2s ease;
+}
+
+.swatch:hover {
+  transform: scale(1.14);
+}
+
+.swatch--on {
+  border-color: var(--ink);
+  transform: scale(1.1);
+}
+
+.swatch--on::after {
+  content: '';
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding: 30px 18px 120px;
+  }
+
+  .fab span {
+    display: none;
+  }
+
+  .fab {
+    padding: 16px;
+    border-radius: 50%;
+  }
+}

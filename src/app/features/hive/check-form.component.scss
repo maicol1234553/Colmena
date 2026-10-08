@@ -1,0 +1,270 @@
+@use 'sass:color';
+
+.page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 28px 90px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px 7px 10px;
+  margin-bottom: 26px;
+  font-size: 13px;
+  font-weight: 550;
+  color: var(--ink-2);
+  text-decoration: none;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  transition: transform 0.34s var(--ease-spring), box-shadow 0.34s var(--ease-out);
+}
+
+.back:hover {
+  transform: translateX(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+.head {
+  margin-bottom: 30px;
+}
+
+.head__sub {
+  margin: 8px 0 0;
+  font-size: 14.5px;
+}
+
+/* ---------- Grupos ---------- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.group {
+  border: 1px solid var(--line);
+  margin: 0;
+}
+
+.group__legend {
+  padding: 0 8px;
+  margin-left: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- Stepper numérico ---------- */
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: rgba(28, 26, 23, 0.05);
+  border-radius: var(--r-full);
+  width: fit-content;
+}
+
+.stepper__btn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  font-size: 18px;
+  color: var(--ink-2);
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.3s var(--ease-spring);
+}
+
+.stepper__btn:hover {
+  background: var(--paper-raised);
+  color: var(--ink);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-xs);
+}
+
+.stepper__btn:active {
+  transform: scale(0.9);
+}
+
+.stepper__value {
+  width: 46px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 21px;
+  background: transparent;
+  border: none;
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+.stepper__value::-webkit-outer-spin-button,
+.stepper__value::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* ---------- Selector de cuadro (fichas 1–10) ---------- */
+.frame-picker {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.frame-dot {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  max-height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition:
+    transform 0.34s var(--ease-spring),
+    background-color 0.24s ease,
+    color 0.24s ease,
+    border-color 0.24s ease,
+    box-shadow 0.3s ease;
+}
+
+.frame-dot:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.frame-dot:active {
+  transform: scale(0.92);
+}
+
+.frame-dot--on {
+  color: #2b2109;
+  background: var(--honey);
+  border-color: var(--honey);
+  box-shadow: 0 4px 12px rgba(224, 163, 58, 0.35);
+  transform: translateY(-2px);
+}
+
+/* ---------- Chips ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.presence-note {
+  margin: 12px 0 0;
+  min-height: 18px;
+}
+
+/* ---------- Slider ---------- */
+.slider-block {
+  margin-top: 24px;
+  padding: 18px 20px 14px;
+  background: rgba(28, 26, 23, 0.025);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+
+.slider-block__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.slider-block__value {
+  font-family: var(--font-display);
+  font-size: 27px;
+  color: var(--honey-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.slider-block__ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+
+/* ---------- Toggle row ---------- */
+.toggle-row {
+  gap: 14px;
+}
+
+.toggle-row__label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14.5px;
+  font-weight: 550;
+}
+
+/* ---------- Pills sanitarios ---------- */
+.health-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.health-pill {
+  position: relative;
+  padding: 9px 17px;
+  font-size: 13.5px;
+  font-weight: 550;
+  color: var(--ink-2);
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    transform 0.3s var(--ease-spring),
+    color 0.24s ease,
+    background-color 0.24s ease,
+    border-color 0.24s ease;
+}
+
+.health-pill input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+  margin: 0;
+}
+
+.health-pill:hover {
+  transform: translateY(-1.5px);
+}
+
+.health-pill:active {
+  transform: scale(0.96);
+}
+
+.health-pill--on:not(.health-pill--danger) {
+  color: var(--leaf);
+  background: var(--leaf-wash);
+  border-color: color-mix(in srgb, var(--leaf) 45%, transparent);
+}
+
+.health-pill--on.health-pill--danger {
+  color: var(--alert);
+  background: var(--alert-wash);
+  border-color: color-mix(in srgb, var(--alert) 45%, transparent);
+}
+
+/* ---------- Acciones ---------- */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}

@@ -1,0 +1,55 @@
+<section class="page">
+  <a class="back" routerLink="/dashboard" eviRipple>
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+         stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 3 5 8l5 5" />
+    </svg>
+    Todas las colmenas
+  </a>
+
+  <header class="hero" [@fadeUp]>
+    <div class="hero__badge" [style.--c]="hive()?.color ?? 'var(--honey)'">
+      {{ hiveId }}
+    </div>
+    <div>
+      <p class="eyebrow">Colmena</p>
+      <h1 class="display">{{ hive()?.name ?? 'Cargando…' }}</h1>
+      @if (hive(); as h) {
+        <p class="hero__meta muted">
+          {{ h.total_checkups }} chequeos · {{ h.total_harvests }} cosechas
+          @if (h.last_health && h.last_health !== 'Sano') {
+            <span class="hero__alert">{{ h.last_health }}</span>
+          }
+        </p>
+      }
+    </div>
+  </header>
+
+  <!-- Acciones grandes: stagger de entrada -->
+  <div class="actions" [@staggerIn]="actions.length">
+    @for (a of actions; track a.key) {
+      <button
+        class="action"
+        type="button"
+        [class.action--on]="active() === a.key"
+        (click)="select(a)"
+        eviRipple
+      >
+        <span class="action__icon">
+          <svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+               stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path [attr.d]="a.icon" />
+          </svg>
+        </span>
+        <span class="action__text">
+          <span class="action__title">{{ a.title }}</span>
+          <span class="action__sub">{{ a.subtitle }}</span>
+        </span>
+        <svg class="action__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
+             stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 3l5 5-5 5" />
+        </svg>
+      </button>
+    }
+  </div>
+</section>

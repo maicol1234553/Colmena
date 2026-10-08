@@ -1,0 +1,223 @@
+<section class="page">
+  <a class="back" [routerLink]="['/hive', hiveId]" eviRipple>
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+         stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 3 5 8l5 5" />
+    </svg>
+    Volver
+  </a>
+
+  <header class="head" [@fadeUp]>
+    <div>
+      <p class="eyebrow">Colmena {{ hiveId }}</p>
+      <h1 class="display">Chequeo General</h1>
+      <p class="muted head__sub">Menos de un minuto. Todo con toques.</p>
+    </div>
+  </header>
+
+  <form class="form" (ngSubmit)="save()">
+    <!-- ============ BLOQUE 1: contexto ============ -->
+    <fieldset class="card panel group" [@fadeUp] style="animation-delay: 40ms">
+      <legend class="group__legend">Contexto</legend>
+
+      <div class="grid-form">
+        <label class="field">
+          <span class="field__label">Fecha</span>
+          <input class="input" type="date" name="date" [(ngModel)]="date" required />
+        </label>
+
+        <label class="field">
+          <span class="field__label">Alza</span>
+          <div class="stepper">
+            <button type="button" class="stepper__btn" (click)="superModel = superModel > 1 ? superModel - 1 : 1"
+                    eviRipple aria-label="Restar">−</button>
+            <input class="stepper__value" type="number" name="super" [(ngModel)]="superModel" min="1" max="9" />
+            <button type="button" class="stepper__btn" (click)="superModel = superModel + 1"
+                    eviRipple aria-label="Sumar">+</button>
+          </div>
+        </label>
+
+        <div class="field">
+          <span class="field__label">Cuadro</span>
+          <!-- Selector numérico 1–10 como fichas (sin escritura) -->
+          <div class="frame-picker">
+            @for (f of OPT.frames; track f) {
+              <button
+                type="button"
+                class="frame-dot"
+                [class.frame-dot--on]="frame === f"
+                (click)="frame = f"
+              >
+                {{ f }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-form" style="margin-top: 20px">
+        <label class="field">
+          <span class="field__label">Temperamento</span>
+          <span class="select-wrap">
+            <select class="select" name="temperament" [(ngModel)]="temperament">
+              @for (o of OPT.temperament; track o) { <option [value]="o">{{ o }}</option> }
+            </select>
+          </span>
+        </label>
+
+        <label class="field">
+          <span class="field__label">Población de la colmena</span>
+          <span class="select-wrap">
+            <select class="select" name="population" [(ngModel)]="population">
+              @for (o of OPT.population; track o) { <option [value]="o">{{ o }}</option> }
+            </select>
+          </span>
+        </label>
+      </div>
+    </fieldset>
+
+    <!-- ============ BLOQUE 2: presencia por cuadro ============ -->
+    <fieldset class="card panel group" [@fadeUp] style="animation-delay: 100ms">
+      <legend class="group__legend">Presencia por cuadro</legend>
+
+      <div class="chips">
+        <label class="chip">
+          <input type="checkbox" name="honey" [(ngModel)]="presence.honey" />
+          <span class="chip__dot"></span> Miel
+        </label>
+        <label class="chip">
+          <input type="checkbox" name="beeBread" [(ngModel)]="presence.beeBread" />
+          <span class="chip__dot"></span> Pan de abeja
+        </label>
+        <label class="chip">
+          <input type="checkbox" name="sealedBrood" [(ngModel)]="presence.sealedBrood" />
+          <span class="chip__dot"></span> Cría operculada
+        </label>
+        <label class="chip">
+          <input type="checkbox" name="openBrood" [(ngModel)]="presence.openBrood" />
+          <span class="chip__dot"></span> Cría abierta
+        </label>
+      </div>
+
+      <p class="presence-note tiny" [@tabFade]>{{ presenceSummary }}</p>
+
+      <!-- Slider con valor vivo -->
+      <div class="slider-block">
+        <div class="slider-block__head">
+          <span class="field__label">Porcentaje del cuadro</span>
+          <span class="slider-block__value">{{ pct }}%</span>
+        </div>
+        <input
+          class="range"
+          type="range"
+          name="pct"
+          min="0"
+          max="100"
+          step="5"
+          [(ngModel)]="pct"
+          [style.--pct.%]="pct"
+          [attr.aria-valuenow]="pct"
+        />
+        <div class="slider-block__ticks tiny">
+          <span>0%</span><span>50%</span><span>100%</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ============ BLOQUE 3: reina y alimentación ============ -->
+    <fieldset class="card panel group" [@fadeUp] style="animation-delay: 160ms">
+      <legend class="group__legend">Reina y alimentación</legend>
+
+      <div class="grid-form">
+        <label class="field">
+          <span class="field__label">Reinas</span>
+          <span class="select-wrap">
+            <select class="select" name="queenStatus" [(ngModel)]="queenStatus">
+              @for (o of OPT.queenStatus; track o) { <option [value]="o">{{ o }}</option> }
+            </select>
+          </span>
+        </label>
+
+        <label class="field">
+          <span class="field__label">Reserva de alimento</span>
+          <span class="select-wrap">
+            <select class="select" name="foodReserve" [(ngModel)]="foodReserve">
+              @for (o of OPT.foodReserve; track o) { <option [value]="o">{{ o }}</option> }
+            </select>
+          </span>
+        </label>
+      </div>
+
+      <label class="switch toggle-row" style="margin-top: 22px">
+        <input type="checkbox" name="artificialFeed" [(ngModel)]="artificialFeed" />
+        <span class="switch__track"><span class="switch__thumb"></span></span>
+        <span class="toggle-row__label">
+          Alimentación artificial
+          <span class="tiny">{{ artificialFeed ? 'Sí, suplementada' : 'No aplica' }}</span>
+        </span>
+      </label>
+    </fieldset>
+
+    <!-- ============ BLOQUE 4: sanidad ============ -->
+    <fieldset class="card panel group" [@fadeUp] style="animation-delay: 220ms">
+      <legend class="group__legend">Higiene y sanidad</legend>
+
+      <div class="grid-form">
+        <label class="field">
+          <span class="field__label">Comportamiento higiénico</span>
+          <span class="select-wrap">
+            <select class="select" name="hygiene" [(ngModel)]="hygiene">
+              @for (o of OPT.hygiene; track o) { <option [value]="o">{{ o }}</option> }
+            </select>
+          </span>
+        </label>
+
+        <div class="field">
+          <span class="field__label">Estado sanitario</span>
+          <div class="health-pills">
+            @for (o of OPT.health; track o) {
+              <label
+                class="health-pill"
+                [class.health-pill--on]="health === o"
+                [class.health-pill--danger]="o !== 'Sano'"
+              >
+                <input type="radio" name="health" [value]="o" [(ngModel)]="health" />
+                {{ o }}
+              </label>
+            }
+          </div>
+        </div>
+      </div>
+
+      <label class="field" style="margin-top: 20px">
+        <span class="field__label">Observaciones <span class="tiny">(opcional)</span></span>
+        <textarea
+          class="textarea"
+          name="notes"
+          rows="3"
+          placeholder="Algo que quieras recordar del campo…"
+          [(ngModel)]="notes"
+        ></textarea>
+      </label>
+    </fieldset>
+
+    <!-- ============ Guardar ============ -->
+    <div class="actions" [@fadeUp] style="animation-delay: 280ms">
+      <a class="btn btn--ghost btn--lg" [routerLink]="['/hive', hiveId]" eviRipple>Cancelar</a>
+
+      <button class="btn btn--primary btn--lg" type="submit" [disabled]="saving()" eviRipple>
+        @if (saved()) {
+          <svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" @drawCheck>
+            <path d="M3 8.5 6.5 12 13 4.5" />
+          </svg>
+          Guardado
+        } @else if (saving()) {
+          <span class="spinner"></span> Guardando…
+        } @else {
+          Guardar chequeo
+        }
+      </button>
+    </div>
+  </form>
+</section>
