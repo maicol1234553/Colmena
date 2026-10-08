@@ -18,7 +18,21 @@
     "@angular/router": "^19.2.0",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.3",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.15.0",
+
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.11.0"
+  },
+
+  "allowScripts": {
+    "esbuild": true
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.2.0",
