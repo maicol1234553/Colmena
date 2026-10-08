@@ -1,1 +1,16 @@
-node_modules
+# Dependencias
+/node_modules
+
+# Build
+/dist
+
+# Caché de Angular (rompe los permisos de binarios si se commitea)
+/.angular
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+.idea/
+.vscode/
