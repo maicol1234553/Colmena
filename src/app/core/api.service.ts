@@ -11,35 +11,36 @@ import type {
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
+  private readonly baseUrl = 'https://backend-colmena.vercel.app';
   private readonly http = inject(HttpClient);
 
   /* ---------- Colmenas ---------- */
   listHives(): Observable<{ hives: Hive[]; kpis: Kpis }> {
-    return this.http.get<{ hives: Hive[]; kpis: Kpis }>('/api/hives');
+    return this.http.get<{ hives: Hive[]; kpis: Kpis }>(`${this.baseUrl}/api/hives`);
   }
 
   createHive(name: string, color: string) {
-    return this.http.post<{ id: number }>('/api/hives', { name, color });
+    return this.http.post<{ id: number }>(`${this.baseUrl}/api/hives`, { name, color });
   }
 
   deleteHive(id: number) {
-    return this.http.delete<{ ok: boolean }>(`/api/hives/${id}`);
+    return this.http.delete<{ ok: boolean }>(`${this.baseUrl}/api/hives/${id}`);
   }
 
   /* ---------- Registros ---------- */
   saveCheckup(payload: CheckupPayload) {
-    return this.http.post<{ id: number }>('/api/records/checkup', payload);
+    return this.http.post<{ id: number }>(`${this.baseUrl}/api/records/checkup`, payload);
   }
 
   saveHarvest(payload: HarvestPayload) {
-    return this.http.post<{ id: number }>('/api/records/harvest', payload);
+    return this.http.post<{ id: number }>(`${this.baseUrl}/api/records/harvest`, payload);
   }
 
   history(hiveId: number, from?: string, to?: string): Observable<{ records: HistoryRecord[] }> {
     let params = new HttpParams().set('hiveId', hiveId);
     if (from) params = params.set('from', from);
     if (to) params = params.set('to', to);
-    return this.http.get<{ records: HistoryRecord[] }>('/api/records/history', { params });
+    return this.http.get<{ records: HistoryRecord[] }>(`${this.baseUrl}/api/records/history`, { params });
   }
 
   /* ---------- Exportación ---------- */
@@ -48,7 +49,7 @@ export class ApiService {
     if (hiveId) params = params.set('hiveId', hiveId);
     if (from) params = params.set('from', from);
     if (to) params = params.set('to', to);
-    return this.http.get('/api/records/export', { params, responseType: 'blob' });
+    return this.http.get<Blob>(`${this.baseUrl}/api/records/export`, { params, responseType: 'blob' });
   }
 }
 
