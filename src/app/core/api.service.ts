@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import type {
   CheckupPayload,
   HarvestPayload,
@@ -11,7 +12,7 @@ import type {
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private readonly baseUrl = 'https://backend-colmena.vercel.app';
+  private readonly baseUrl = environment.baseUrl;
   private readonly http = inject(HttpClient);
 
   /* ---------- Colmenas ---------- */
@@ -49,7 +50,7 @@ export class ApiService {
     if (hiveId) params = params.set('hiveId', hiveId);
     if (from) params = params.set('from', from);
     if (to) params = params.set('to', to);
-    return this.http.get<Blob>(`${this.baseUrl}/api/records/export`, { params, responseType: 'blob' });
+   return this.http.get(`${this.baseUrl}/api/records/export`, { params, responseType: 'blob' });
   }
 }
 

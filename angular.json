@@ -20,14 +20,31 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/assets"],
             "styles": ["src/styles.scss"]
-          }
+          },
+          "configurations": {
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "buildTarget": "evieland-frontend:build",
             "proxyConfig": "proxy.conf.json"
-          }
+          },
+          "configurations": {
+            "development": {
+              "buildTarget": "evieland-frontend:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
         }
       }
     }

@@ -1,10 +1,14 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 export const TOKEN_KEY = 'evieland.token';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = localStorage.getItem(TOKEN_KEY);
-  if (token && req.url.startsWith('/api')) {
+  const isApiRequest =
+    req.url.startsWith('/api') || req.url.startsWith(environment.baseUrl);
+
+  if (token && isApiRequest) {
     req = req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
   }
   return next(req);
