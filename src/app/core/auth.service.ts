@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { TOKEN_KEY } from './auth.interceptor';
 import type { User } from './models';
 
@@ -12,7 +13,7 @@ interface AuthResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly base = '/api/auth';
+  private readonly base = `${environment.apiUrl}/api/auth`;
 
   /** Signals: reactividad sin RxJS boilerplate */
   readonly user = signal<User | null>(null);

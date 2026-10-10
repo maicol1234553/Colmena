@@ -12,7 +12,7 @@ import type {
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private readonly baseUrl = environment.baseUrl;
+  private readonly baseUrl = environment.apiUrl;
   private readonly http = inject(HttpClient);
 
   /* ---------- Colmenas ---------- */
