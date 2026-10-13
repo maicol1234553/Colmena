@@ -106,9 +106,9 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(ellipse 80% 60% at 30% 20%, rgba(255, 180, 50, 0.95) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 50% at 70% 80%, rgba(255, 120, 20, 0.85) 0%, transparent 55%),
-    radial-gradient(circle at 50% 50%, #ff9500 0%, #f07000 50%, #d05000 100%);
+    radial-gradient(ellipse 80% 60% at 30% 20%, rgba(255, 230, 130, 0.95) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 70% 80%, rgba(255, 190, 60, 0.85) 0%, transparent 55%),
+    radial-gradient(circle at 50% 50%, #f7b733 0%, #f09012 50%, #d4700a 100%);
   opacity: 1;
 }
 
@@ -133,8 +133,8 @@
   inset: 0;
   z-index: 0;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background: linear-gradient(135deg, #ffcc00, #ff8800, #e05000);
-  opacity: 0.65;
+  background: linear-gradient(135deg, #ffe080, #f7b733, #e8900a);
+  opacity: 0.7;
   pointer-events: none;
 }
 
