@@ -103,31 +103,15 @@
     box-shadow 0.44s var(--ease-out);
 }
 
-/* Patrón de celdas hexagonales */
-.hive-card::before {
-  content: '';
+/* Celdas hexagonales internas - SVG pattern */
+.hive-card__cells {
   position: absolute;
-  inset: 12px;
-  background:
-    radial-gradient(ellipse 60% 45% at 35% 25%, rgba(255, 230, 160, 0.6) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 65% 75%, rgba(200, 100, 0, 0.4) 0%, transparent 50%),
-    repeating-linear-gradient(60deg,
-      transparent 0px, transparent 12px,
-      rgba(180, 90, 0, 0.35) 12px, rgba(180, 90, 0, 0.35) 15px,
-      transparent 15px, transparent 28px
-    ),
-    repeating-linear-gradient(-60deg,
-      transparent 0px, transparent 12px,
-      rgba(180, 90, 0, 0.35) 12px, rgba(180, 90, 0, 0.35) 15px,
-      transparent 15px, transparent 28px
-    ),
-    repeating-linear-gradient(0deg,
-      transparent 0px, transparent 12px,
-      rgba(200, 110, 0, 0.3) 12px, rgba(200, 110, 0, 0.3) 15px,
-      transparent 15px, transparent 28px
-    );
+  inset: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='69' viewBox='0 0 40 69'%3E%3Cpolygon points='20,0 40,10 40,35 20,45 0,35 0,10' fill='none' stroke='rgba(120,60,0,0.25)' stroke-width='1.5'/%3E%3Cpolygon points='20,24 40,34 40,59 20,69 0,59 0,34' fill='none' stroke='rgba(120,60,0,0.25)' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-size: 40px 69px;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   pointer-events: none;
+  opacity: 0.9;
 }
 
 /* Brillo superior */
