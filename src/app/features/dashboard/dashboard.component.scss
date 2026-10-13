@@ -109,48 +109,24 @@
   position: absolute;
   inset: 12px;
   background:
-    radial-gradient(ellipse 60% 45% at 35% 25%, rgba(255, 220, 140, 0.5) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 65% 75%, rgba(220, 90, 0, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 45% at 35% 25%, rgba(255, 230, 160, 0.6) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 65% 75%, rgba(200, 100, 0, 0.4) 0%, transparent 50%),
     repeating-linear-gradient(60deg,
       transparent 0px, transparent 12px,
-      rgba(255, 210, 130, 0.22) 12px, rgba(255, 210, 130, 0.22) 14px,
-      transparent 14px, transparent 26px
+      rgba(180, 90, 0, 0.35) 12px, rgba(180, 90, 0, 0.35) 15px,
+      transparent 15px, transparent 28px
     ),
     repeating-linear-gradient(-60deg,
       transparent 0px, transparent 12px,
-      rgba(255, 210, 130, 0.22) 12px, rgba(255, 210, 130, 0.22) 14px,
-      transparent 14px, transparent 26px
+      rgba(180, 90, 0, 0.35) 12px, rgba(180, 90, 0, 0.35) 15px,
+      transparent 15px, transparent 28px
     ),
     repeating-linear-gradient(0deg,
       transparent 0px, transparent 12px,
-      rgba(255, 220, 150, 0.18) 12px, rgba(255, 220, 150, 0.18) 14px,
-      transparent 14px, transparent 26px
+      rgba(200, 110, 0, 0.3) 12px, rgba(200, 110, 0, 0.3) 15px,
+      transparent 15px, transparent 28px
     );
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  pointer-events: none;
-}
-
-/* Borde brillante inferior */
-.hive-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 10%;
-  right: 10%;
-  height: 40%;
-  background: linear-gradient(0deg, rgba(255, 220, 150, 0.25) 0%, transparent 100%);
-  clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
-  pointer-events: none;
-}
-
-/* Borde naranja exterior */
-.hive-card__border {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background: linear-gradient(135deg, #ffaa00, #ff6600, #dd3300);
-  opacity: 0.75;
   pointer-events: none;
 }
 
