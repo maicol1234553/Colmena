@@ -68,6 +68,53 @@
           <a class="hive-card" [routerLink]="['/hive', hive.id]" eviRipple>
             <span class="hive-card__stripe" [style.background]="hive.color"></span>
 
+            <!-- Flor decorativa (margarita) -->
+            <span class="hive-card__flower" aria-hidden="true">
+              <svg viewBox="0 0 60 60" width="52" height="52">
+                <!-- Pétalos blancos -->
+                <g fill="#fff" stroke="#e8e4dc" stroke-width="0.8">
+                  <ellipse cx="30" cy="14" rx="7" ry="11" />
+                  <ellipse cx="30" cy="46" rx="7" ry="11" />
+                  <ellipse cx="14" cy="30" rx="11" ry="7" />
+                  <ellipse cx="46" cy="30" rx="11" ry="7" />
+                  <ellipse cx="19" cy="19" rx="7" ry="11" transform="rotate(-45 19 19)" />
+                  <ellipse cx="41" cy="19" rx="7" ry="11" transform="rotate(45 41 19)" />
+                  <ellipse cx="19" cy="41" rx="7" ry="11" transform="rotate(45 19 41)" />
+                  <ellipse cx="41" cy="41" rx="7" ry="11" transform="rotate(-45 41 41)" />
+                </g>
+                <!-- Centro amarillo -->
+                <circle cx="30" cy="30" r="9" fill="#f5c542" stroke="#e8a825" stroke-width="1" />
+                <circle cx="27" cy="27" r="3" fill="#f9d976" />
+                <!-- Hojas verdes -->
+                <path d="M8 48 Q12 40 18 38 Q14 46 8 48Z" fill="#5a8a3c" />
+                <path d="M52 12 Q48 20 42 22 Q46 14 52 12Z" fill="#5a8a3c" />
+              </svg>
+            </span>
+
+            <!-- Abeja decorativa -->
+            <span class="hive-card__bee" aria-hidden="true">
+              <svg viewBox="0 0 80 60" width="64" height="48">
+                <!-- Alas -->
+                <ellipse cx="28" cy="14" rx="12" ry="8" fill="rgba(255,255,255,0.7)" stroke="#d4d0c8" stroke-width="0.8" transform="rotate(-20 28 14)" />
+                <ellipse cx="52" cy="14" rx="12" ry="8" fill="rgba(255,255,255,0.7)" stroke="#d4d0c8" stroke-width="0.8" transform="rotate(20 52 14)" />
+                <!-- Cuerpo -->
+                <ellipse cx="40" cy="34" rx="18" ry="12" fill="#f5c542" />
+                <!-- Rayas -->
+                <rect x="34" y="23" width="4" height="22" rx="2" fill="#2c2a1e" />
+                <rect x="42" y="23" width="4" height="22" rx="2" fill="#2c2a1e" />
+                <rect x="50" y="25" width="4" height="18" rx="2" fill="#2c2a1e" />
+                <!-- Cabeza -->
+                <circle cx="58" cy="30" r="7" fill="#2c2a1e" />
+                <!-- Ojos -->
+                <circle cx="60" cy="27" r="2" fill="#fff" />
+                <!-- Antenas -->
+                <path d="M55 24 Q52 16 48 12" fill="none" stroke="#2c2a1e" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M60 23 Q60 14 62 10" fill="none" stroke="#2c2a1e" stroke-width="1.5" stroke-linecap="round" />
+                <!-- Estilo punteado de vuelo -->
+                <path d="M8 40 Q20 44 28 38" fill="none" stroke="#b8b4ac" stroke-width="1" stroke-dasharray="3 3" />
+              </svg>
+            </span>
+
             <div class="hive-card__top">
               <span class="hive-card__index" [style.color]="hive.color">
                 {{ hiveNumber(hive.name) }}
