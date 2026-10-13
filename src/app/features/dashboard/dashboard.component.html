@@ -66,6 +66,7 @@
       <div class="hive-grid__inner" [@staggerIn]="hives().length">
         @for (hive of hives(); track hive.id) {
           <a class="hive-card" [routerLink]="['/hive', hive.id]" eviRipple>
+            <span class="hive-card__shine"></span>
             <span class="hive-card__stripe" [style.background]="hive.color"></span>
 
             <!-- Flor decorativa (margarita) -->
